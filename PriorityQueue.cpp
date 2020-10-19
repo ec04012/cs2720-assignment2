@@ -75,16 +75,21 @@ void PriorityQueue<ItemType>::dequeue(ItemType& item) {
 // returns the item at the front of the queue without
 // removing the item from the queue
 template <class ItemType>
-ItemType PriorityQueue<ItemType>::peek() {
-    ItemType e;
-    return e;
+ItemType PriorityQueue<ItemType>::peek() const {
+    if(isEmpty()) {
+        throw QueueUnderflow();
+    }
+    return head->info;
 }
 
 // returns the priority of the  item at the front
 // of the queue without removing the item from the queue
 template <class ItemType>
-int PriorityQueue<ItemType>::peekPriority() {
-    return 0;
+int PriorityQueue<ItemType>::peekPriority() const {
+    if(isEmpty()) {
+        throw QueueUnderflow();
+    }
+    return head->priority;
 }
 
 // Function: returns the number of head in the queue

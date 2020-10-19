@@ -44,11 +44,11 @@ class PriorityQueue {
     //       is undefined.
     //       else front item is dequeued and returned in item.
 
-    ItemType peek();
+    ItemType peek() const;
     // returns the item at the front of the queue without
     // removing the item from the queue
 
-    int peekPriority();
+    int peekPriority() const;
     // returns the priority of the  item at the front
     // of the queue without removing the item from the queue
 
