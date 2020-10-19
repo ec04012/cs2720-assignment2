@@ -26,7 +26,7 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
     }
 
     // predecessor QNode
-    QNode<ItemType>* pred = NULL;
+    QNode<ItemType>* pred = findPred(priority);
 
     // Attemp to insert item
     QNode<ItemType>* newQNode = new QNode<ItemType>;
