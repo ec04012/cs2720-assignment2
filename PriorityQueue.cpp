@@ -107,12 +107,13 @@ int PriorityQueue<ItemType>::length() const {
 template <class ItemType>
 void PriorityQueue<ItemType>::printQueue(ofstream& stream) {
     QNode<ItemType>* temp = head;
-    stream << "List head : ";
-    while(temp != NULL) {
-        stream << temp->info << "->";
-        temp = temp->next;
+    stream << "Queue: ";
+    if(Length != 0) {
+        while(temp != NULL) {
+            stream << temp->info << " ";
+            temp = temp->next;
+        }
     }
-    stream << "NULL" << endl;
 }
 
 // Function: Deallocates all list QNodes, and reinitializes the list to its empty state.
