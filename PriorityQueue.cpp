@@ -28,11 +28,6 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
     // predecessor QNode
     QNode<ItemType>* pred;
     findPred(priority, pred);
-    if(pred == NULL) {
-        cout << "Null" << endl;
-    } else {
-        cout << pred->info << endl;
-    }
 
     // Attemp to insert item
     QNode<ItemType>* newQNode = new QNode<ItemType>;
