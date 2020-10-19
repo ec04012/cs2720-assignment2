@@ -13,43 +13,6 @@ PriorityQueue<ItemType>::~PriorityQueue() {
     makeEmpty();
 }
 
-// Function: Deallocates all list QNodes, and reinitializes the list to its empty state.
-// Pre: List is initialized
-// Post: list is empty.
-template <class ItemType>
-void PriorityQueue<ItemType>::makeEmpty() {
-    QNode<ItemType>* tempPtr;
-    while(items != NULL) {
-        tempPtr = items;
-        items = items->next;
-        delete tempPtr;
-    }
-    Length = 0;
-}
-
-// Function: Determines whether the list is empty.
-// Pre: List is initialized
-// Post: Function value = (list is empty)
-template <class ItemType>
-bool PriorityQueue<ItemType>::isEmpty() const {
-    return items == NULL;
-}
-
-// Function: Determines whether the list is full.
-// Pre: List is initialized
-// Post: Function value = (list is full)
-template <class ItemType>
-bool PriorityQueue<ItemType>::isFull() const {
-    // Try to allocate a new QNode, if not possible then list if full
-    try {
-        QNode<ItemType>* temp = new QNode<ItemType>;
-        delete temp;
-        return false;
-    } catch(std::bad_alloc) {
-        return true;
-    }
-}
-
 // Function: Adds newItem to the end of the list.
 // Pre: List is initialized
 // Post: If (List is full) QueueOverflow exception is thrown
@@ -111,6 +74,21 @@ void PriorityQueue<ItemType>::dequeue(ItemType& item) {
     Length--;
 }
 
+// returns the item at the front of the queue without
+// removing the item from the queue
+template <class ItemType>
+ItemType PriorityQueue<ItemType>::peek() {
+    ItemType e;
+    return e;
+}
+
+// returns the item at the front of the queue without
+// removing the item from the queue
+template <class ItemType>
+int PriorityQueue<ItemType>::peekPriority() {
+    return 0;
+}
+
 // Function: returns the number of items in the list
 // pre: List is initialized.
 // post: Function value = number of elemnts in the list.
@@ -131,6 +109,43 @@ void PriorityQueue<ItemType>::printQueue(ofstream& stream) {
         temp = temp->next;
     }
     stream << "NULL" << endl;
+}
+
+// Function: Deallocates all list QNodes, and reinitializes the list to its empty state.
+// Pre: List is initialized
+// Post: list is empty.
+template <class ItemType>
+void PriorityQueue<ItemType>::makeEmpty() {
+    QNode<ItemType>* tempPtr;
+    while(items != NULL) {
+        tempPtr = items;
+        items = items->next;
+        delete tempPtr;
+    }
+    Length = 0;
+}
+
+// Function: Determines whether the list is empty.
+// Pre: List is initialized
+// Post: Function value = (list is empty)
+template <class ItemType>
+bool PriorityQueue<ItemType>::isEmpty() const {
+    return items == NULL;
+}
+
+// Function: Determines whether the list is full.
+// Pre: List is initialized
+// Post: Function value = (list is full)
+template <class ItemType>
+bool PriorityQueue<ItemType>::isFull() const {
+    // Try to allocate a new QNode, if not possible then list if full
+    try {
+        QNode<ItemType>* temp = new QNode<ItemType>;
+        delete temp;
+        return false;
+    } catch(std::bad_alloc) {
+        return true;
+    }
 }
 
 // Function: Searches the list for item and returns a pointer to item's predecessor QNode.

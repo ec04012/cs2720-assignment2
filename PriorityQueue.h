@@ -18,26 +18,11 @@ struct QNode {
 template <class ItemType>
 class PriorityQueue {
    public:
-    PriorityQueue();
     // Class constructor.
-
-    PriorityQueue(int max);
-    // Parameterized class constructor.
+    PriorityQueue();
 
     ~PriorityQueue();
     // Class destructor.
-
-    void makeEmpty();
-    // Function: Initializes the queue to an empty state.
-    // Post: Queue is empty.
-
-    bool isEmpty() const;
-    // Function: Determines whether the queue is empty.
-    // Post: Function value = (queue is empty)
-
-    bool isFull() const;
-    // Function: Determines whether the queue is full.
-    // Post: Function value = (queue is full)
 
     void enqueue(ItemType newItem);
     // Function: Adds newItem to the rear of the queue.
@@ -65,6 +50,18 @@ class PriorityQueue {
 
     void printQueue(ofstream&);
     // displays QueueItems
+
+    void makeEmpty();
+    // Function: Initializes the queue to an empty state.
+    // Post: Queue is empty.
+
+    bool isEmpty() const;
+    // Function: Determines whether the queue is empty.
+    // Post: Function value = (queue is empty)
+
+    bool isFull() const;
+    // Function: Determines whether the queue is full.
+    // Post: Function value = (queue is full)
 
    private:
     QNode<ItemType>* items;
