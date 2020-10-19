@@ -24,48 +24,64 @@ class PriorityQueue {
     ~PriorityQueue();
     // Class destructor.
 
+    void enqueue(ItemType newItem, int priority);
+    // Function: Adds newItem into the queue based on its priority.
+    // A lower priority means the items is placed earlier in the queue
+    // towards the front.
+    // Post: If (queue is full) QueueOverflow exception is thrown
+    //       else newItem is inserted into the proper location in queue.
+
     void enqueue(ItemType newItem);
-    // Function: Adds newItem to the rear of the queue.
-    // Post: If (queue is full) FullQueue exception is thrown
-    //       else newItem is at rear of queue.
+    // Function: Adds newItem to the the queue.
+    // This adds newItem with a priority of 0
+    // Post: If (queue is full) QueueOverflow exception is thrown
+    //       else newItem is inserted into queue.
 
     void dequeue(ItemType& item);
-    // Function: Removes front item from the queue and returns it
-    // in item.
-    // Post: If (queue is empty) EmptyQueue exception is thrown
-    //       and item is undefined
-    //       else front element has been removed from queue and
-    //       item is a copy of removed element.
+    // Function: deletes Item from the front of the queue and returns
+    // it in item.
+    // Post: If List is empty, QueueUnderflow exception is thrown and item
+    //       is undefined.
+    //       else front item is dequeued and returned in item.
 
     ItemType peek();
     // returns the item at the front of the queue without
     // removing the item from the queue
 
     int peekPriority();
-    // returns the item at the front of the queue without
-    // removing the item from the queue
+    // returns the priority of the  item at the front
+    // of the queue without removing the item from the queue
 
     int length() const;
     // Function: returns the number of items in the queue
+    // pre: List is initialized.
+    // post: Function value = number of elements in the queue.
+    //       and queue is unchanged.
 
-    void printQueue(ofstream&);
-    // displays QueueItems
+    void printQueue(ofstream& stream);
+    // Function: Prints the list to a file
+    // pre: List is initialized
+    // post: List is not changed
 
     void makeEmpty();
-    // Function: Initializes the queue to an empty state.
-    // Post: Queue is empty.
+    // Function: Deallocates all list QNodes, and reinitializes the list to its empty state.
+    // Pre: List is initialized
+    // Post: list is empty.
 
     bool isEmpty() const;
-    // Function: Determines whether the queue is empty.
-    // Post: Function value = (queue is empty)
+    // Function: Determines whether the list is empty.
+    // Pre: List is initialized
+    // Post: Function value = (list is empty)
 
     bool isFull() const;
-    // Function: Determines whether the queue is full.
-    // Post: Function value = (queue is full)
+    // Function: Determines whether the list is full.
+    // Pre: List is initialized
+    // Post: Function value = (list is full)
 
    private:
     QNode<ItemType>* items;
     int Length;
-    bool findItem(ItemType item, QNode<ItemType>*& predecessor);
+    bool findItem(int priority, QNode<ItemType>*& predecessor);
+    // Finds the pred node based of priority
 };
 #endif

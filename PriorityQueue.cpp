@@ -13,14 +13,13 @@ PriorityQueue<ItemType>::~PriorityQueue() {
     makeEmpty();
 }
 
-// Function: Adds newItem to the end of the list.
-// Pre: List is initialized
-// Post: If (List is full) QueueOverflow exception is thrown
-//       If item is already in the list DuplicateItem exception is thrown
-//       else newItem is in the list at the correct position based on key value.
-//         list maintains the sortedness property
+// Function: Adds newItem into the queue based on its priority.
+// A lower priority means the items is placed earlier in the queue
+// towards the front.
+// Post: If (queue is full) QueueOverflow exception is thrown
+//       else newItem is inserted into the proper location in queue.
 template <class ItemType>
-void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
+void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
     // Check for full list
     if(isFull()) {
         throw QueueOverflow();
@@ -44,10 +43,20 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
     Length++;
 }
 
-// Function: deletes Item from the list.
-// Post: If List is empty, QueueUnderflow exception is thrown.
-// If item is not in the list, DeletingMissingItem exception is thrown.
-//   else Item is not in the list.
+// Function: Adds newItem to the the queue.
+// This adds newItem with a priority of 0
+// Post: If (queue is full) QueueOverflow exception is thrown
+//       else newItem is inserted into queue.
+template <class ItemType>
+void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
+    enqueue(newItem, 0, );
+}
+
+// Function: deletes Item from the front of the queue and returns
+// it in item.
+// Post: If List is empty, QueueUnderflow exception is thrown and item
+//       is undefined.
+//       else front item is dequeued and returned in item.
 template <class ItemType>
 void PriorityQueue<ItemType>::dequeue(ItemType& item) {
     // predecessor QNode
@@ -82,16 +91,17 @@ ItemType PriorityQueue<ItemType>::peek() {
     return e;
 }
 
-// returns the item at the front of the queue without
-// removing the item from the queue
+// returns the priority of the  item at the front
+// of the queue without removing the item from the queue
 template <class ItemType>
 int PriorityQueue<ItemType>::peekPriority() {
     return 0;
 }
 
-// Function: returns the number of items in the list
+// Function: returns the number of items in the queue
 // pre: List is initialized.
-// post: Function value = number of elemnts in the list.
+// post: Function value = number of elements in the queue.
+//       and queue is unchanged.
 template <class ItemType>
 int PriorityQueue<ItemType>::length() const {
     return Length;
@@ -155,7 +165,7 @@ bool PriorityQueue<ItemType>::isFull() const {
 //       (3) predecessor contains the address of item's predecessor QNode ( i.e. QNode with largest value < item's key)
 //        if no predescessor exit, predecessor is set to NULL.
 template <class ItemType>
-bool PriorityQueue<ItemType>::findItem(ItemType item, QNode<ItemType>*& predecessor) {
+bool PriorityQueue<ItemType>::findItem(int priority, QNode<ItemType>*& predecessor) {
     predecessor = NULL;
 
     QNode<ItemType>* location = items;
