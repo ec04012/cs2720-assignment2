@@ -16,22 +16,28 @@ PriorityQueue<ItemType>::~PriorityQueue() {
 // Function: Adds newItem into the queue based on its priority.
 // A lower priority means the head is placed earlier in the queue
 // towards the front.
-// Post: If (queue is full) QueueOverflow exception is thrown
+// Post: If (queue is full) FullQueue exception is thrown
 //       else newItem is inserted into the proper location in queue.
 template <class ItemType>
 void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
     // Check for full list
     if(isFull()) {
-        throw QueueOverflow();
+        throw FullQueue();
     }
 
     // predecessor QNode
     QNode<ItemType>* pred;
     findPred(priority, pred);
+    if(pred == NULL) {
+        cout << "Null" << endl;
+    } else {
+        cout << pred->info << endl;
+    }
 
     // Attemp to insert item
     QNode<ItemType>* newQNode = new QNode<ItemType>;
     newQNode->info = newItem;
+    newQNode->priority = priority;
     if(pred == NULL) {
         // special case for inserting at beginning
         newQNode->next = head;
@@ -46,7 +52,7 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
 
 // Function: Adds newItem to the the queue.
 // This adds newItem with a priority of 0
-// Post: If (queue is full) QueueOverflow exception is thrown
+// Post: If (queue is full) FullQueue exception is thrown
 //       else newItem is inserted into queue.
 template <class ItemType>
 void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
@@ -55,13 +61,13 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
 
 // Function: deletes Item from the front of the queue and returns
 // it in item.
-// Post: If List is empty, QueueUnderflow exception is thrown and item
+// Post: If List is empty, EmptyQueue exception is thrown and item
 //       is undefined.
 //       else front item is dequeued and returned in item.
 template <class ItemType>
 void PriorityQueue<ItemType>::dequeue(ItemType& item) {
     if(isEmpty()) {
-        throw QueueUnderflow();
+        throw EmptyQueue();
     }
 
     // delete first element
@@ -78,7 +84,7 @@ void PriorityQueue<ItemType>::dequeue(ItemType& item) {
 template <class ItemType>
 ItemType PriorityQueue<ItemType>::peek() const {
     if(isEmpty()) {
-        throw QueueUnderflow();
+        throw EmptyQueue();
     }
     return head->info;
 }
@@ -88,7 +94,7 @@ ItemType PriorityQueue<ItemType>::peek() const {
 template <class ItemType>
 int PriorityQueue<ItemType>::peekPriority() const {
     if(isEmpty()) {
-        throw QueueUnderflow();
+        throw EmptyQueue();
     }
     return head->priority;
 }

@@ -4,9 +4,9 @@
 using namespace std;
 #include <fstream>
 #include <string>
-class QueueOverflow {};
+class FullQueue {};
 
-class QueueUnderflow {};
+class EmptyQueue {};
 
 template <class ItemType>
 struct QNode {
@@ -28,19 +28,19 @@ class PriorityQueue {
     // Function: Adds newItem into the queue based on its priority.
     // A lower priority means the head is placed earlier in the queue
     // towards the front.
-    // Post: If (queue is full) QueueOverflow exception is thrown
+    // Post: If (queue is full) FullQueue exception is thrown
     //       else newItem is inserted into the proper location in queue.
 
     void enqueue(ItemType newItem);
     // Function: Adds newItem to the the queue.
     // This adds newItem with a priority of 0
-    // Post: If (queue is full) QueueOverflow exception is thrown
+    // Post: If (queue is full) FullQueue exception is thrown
     //       else newItem is inserted into queue.
 
     void dequeue(ItemType& item);
     // Function: deletes Item from the front of the queue and returns
     // it in item.
-    // Post: If List is empty, QueueUnderflow exception is thrown and item
+    // Post: If List is empty, EmptyQueue exception is thrown and item
     //       is undefined.
     //       else front item is dequeued and returned in item.
 
