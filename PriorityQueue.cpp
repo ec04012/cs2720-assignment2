@@ -3,7 +3,7 @@
 // Class constructor.
 template <class ItemType>
 PriorityQueue<ItemType>::PriorityQueue() {
-    items = NULL;
+    head = NULL;
     Length = 0;
 }
 
@@ -14,7 +14,7 @@ PriorityQueue<ItemType>::~PriorityQueue() {
 }
 
 // Function: Adds newItem into the queue based on its priority.
-// A lower priority means the items is placed earlier in the queue
+// A lower priority means the head is placed earlier in the queue
 // towards the front.
 // Post: If (queue is full) QueueOverflow exception is thrown
 //       else newItem is inserted into the proper location in queue.
@@ -33,8 +33,8 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
     newQNode->info = newItem;
     if(pred == NULL) {
         // special case for inserting at beginning
-        newQNode->next = items;
-        items = newQNode;
+        newQNode->next = head;
+        head = newQNode;
     } else {
         // regular case, insert a new QNode in middle or at end of list
         newQNode->next = pred->next;
@@ -59,27 +59,16 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
 //       else front item is dequeued and returned in item.
 template <class ItemType>
 void PriorityQueue<ItemType>::dequeue(ItemType& item) {
-    // predecessor QNode
-    QNode<ItemType>* pred;
-
     if(isEmpty()) {
         throw QueueUnderflow();
     }
 
-    if(pred == NULL) {
-        // special case for deleting first element
-        QNode<ItemType>* loc = items;
-        items = items->next;
-        loc->next = NULL;
-        delete loc;
-    } else {
-        // regular case, connect pred to next next
-        // then delete the loc QNode
-        QNode<ItemType>* loc = pred->next;
-        pred->next = loc->next;
-        loc->next = NULL;
-        delete loc;
-    }
+    // delete first element
+    QNode<ItemType>* loc = head;
+    item = head->info;
+    head = head->next;
+    loc->next = NULL;
+    delete loc;
     Length--;
 }
 
@@ -98,7 +87,7 @@ int PriorityQueue<ItemType>::peekPriority() {
     return 0;
 }
 
-// Function: returns the number of items in the queue
+// Function: returns the number of head in the queue
 // pre: List is initialized.
 // post: Function value = number of elements in the queue.
 //       and queue is unchanged.
@@ -112,8 +101,8 @@ int PriorityQueue<ItemType>::length() const {
 // post: List is not changed
 template <class ItemType>
 void PriorityQueue<ItemType>::printQueue(ofstream& stream) {
-    QNode<ItemType>* temp = items;
-    stream << "List Items : ";
+    QNode<ItemType>* temp = head;
+    stream << "List head : ";
     while(temp != NULL) {
         stream << temp->info << "->";
         temp = temp->next;
@@ -127,9 +116,9 @@ void PriorityQueue<ItemType>::printQueue(ofstream& stream) {
 template <class ItemType>
 void PriorityQueue<ItemType>::makeEmpty() {
     QNode<ItemType>* tempPtr;
-    while(items != NULL) {
-        tempPtr = items;
-        items = items->next;
+    while(head != NULL) {
+        tempPtr = head;
+        head = head->next;
         delete tempPtr;
     }
     Length = 0;
@@ -140,7 +129,7 @@ void PriorityQueue<ItemType>::makeEmpty() {
 // Post: Function value = (list is empty)
 template <class ItemType>
 bool PriorityQueue<ItemType>::isEmpty() const {
-    return items == NULL;
+    return head == NULL;
 }
 
 // Function: Determines whether the list is full.
@@ -166,7 +155,7 @@ bool PriorityQueue<ItemType>::isFull() const {
 template <class ItemType>
 void PriorityQueue<ItemType>::findPred(int priority, QNode<ItemType>*& predecessor) {
     predecessor = NULL;
-    QNode<ItemType>* location = items;
+    QNode<ItemType>* location = head;
     while(location != NULL && location->priority < priority) {
         predecessor = location;
         location = location->next;

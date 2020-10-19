@@ -26,7 +26,7 @@ class PriorityQueue {
 
     void enqueue(ItemType newItem, int priority);
     // Function: Adds newItem into the queue based on its priority.
-    // A lower priority means the items is placed earlier in the queue
+    // A lower priority means the head is placed earlier in the queue
     // towards the front.
     // Post: If (queue is full) QueueOverflow exception is thrown
     //       else newItem is inserted into the proper location in queue.
@@ -53,7 +53,7 @@ class PriorityQueue {
     // of the queue without removing the item from the queue
 
     int length() const;
-    // Function: returns the number of items in the queue
+    // Function: returns the number of head in the queue
     // pre: List is initialized.
     // post: Function value = number of elements in the queue.
     //       and queue is unchanged.
@@ -79,7 +79,7 @@ class PriorityQueue {
     // Post: Function value = (list is full)
 
    private:
-    QNode<ItemType>* items;
+    QNode<ItemType>* head;
     int Length;
     void findPred(int priority, QNode<ItemType>*& predecessor);
     // Finds the pred node based on priority
