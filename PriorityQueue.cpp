@@ -49,7 +49,7 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
 //       else newItem is inserted into queue.
 template <class ItemType>
 void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
-    enqueue(newItem, 0, );
+    enqueue(newItem, 0);
 }
 
 // Function: deletes Item from the front of the queue and returns
@@ -158,25 +158,17 @@ bool PriorityQueue<ItemType>::isFull() const {
     }
 }
 
-// Function: Searches the list for item and returns a pointer to item's predecessor QNode.
+// Function: Searches the list for priority and returns a pointer to item's predecessor QNode.
 // pre: list is initialized
-// post: (1) If item is in the list, function value =  true
-//       (2) if item is not in the list, function value is false
-//       (3) predecessor contains the address of item's predecessor QNode ( i.e. QNode with largest value < item's key)
-//        if no predescessor exit, predecessor is set to NULL.
+// post: (1) predecessor contains the address of item's predecessor QNode
+//        i.e. QNode with largest priority < param priority
+//        if no predescessor exit and predecessor is set to NULL.
 template <class ItemType>
-bool PriorityQueue<ItemType>::findItem(int priority, QNode<ItemType>*& predecessor) {
+void PriorityQueue<ItemType>::findPred(int priority, QNode<ItemType>*& predecessor) {
     predecessor = NULL;
-
     QNode<ItemType>* location = items;
-    while(location != NULL && location->info < item) {
+    while(location != NULL && location->priority < priority) {
         predecessor = location;
         location = location->next;
     }
-
-    if(location != NULL && location->info == item) {
-        return true;
-    }
-
-    return false;
 }

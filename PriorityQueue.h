@@ -81,7 +81,7 @@ class PriorityQueue {
    private:
     QNode<ItemType>* items;
     int Length;
-    bool findItem(int priority, QNode<ItemType>*& predecessor);
-    // Finds the pred node based of priority
+    void findPred(int priority, QNode<ItemType>*& predecessor);
+    // Finds the pred node based on priority
 };
 #endif
