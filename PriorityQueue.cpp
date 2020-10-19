@@ -50,7 +50,7 @@ void PriorityQueue<ItemType>::enqueue(ItemType newItem, int priority) {
 //       else newItem is inserted into queue.
 template <class ItemType>
 void PriorityQueue<ItemType>::enqueue(ItemType newItem) {
-    enqueue(newItem, 0);
+    enqueue(newItem, 1);
 }
 
 // Function: deletes Item from the front of the queue and returns
@@ -109,12 +109,11 @@ template <class ItemType>
 void PriorityQueue<ItemType>::printQueue(ofstream& stream) {
     QNode<ItemType>* temp = head;
     stream << "Queue: ";
-    if(Length != 0) {
-        while(temp != NULL) {
-            stream << temp->info << " ";
-            temp = temp->next;
-        }
+    while(temp != NULL) {
+        stream << temp->info << " ";
+        temp = temp->next;
     }
+    stream << endl;
 }
 
 // Function: Deallocates all list QNodes, and reinitializes the list to its empty state.
@@ -163,7 +162,7 @@ template <class ItemType>
 void PriorityQueue<ItemType>::findPred(int priority, QNode<ItemType>*& predecessor) {
     predecessor = NULL;
     QNode<ItemType>* location = head;
-    while(location != NULL && location->priority < priority) {
+    while(location != NULL && location->priority <= priority) {
         predecessor = location;
         location = location->next;
     }
